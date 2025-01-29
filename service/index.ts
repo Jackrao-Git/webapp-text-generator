@@ -1,4 +1,12 @@
-import type { IOnCompleted, IOnData, IOnError, IOnNodeFinished, IOnNodeStarted, IOnWorkflowFinished, IOnWorkflowStarted } from './base'
+import type { 
+  IOnCompleted, 
+  IOnData, 
+  IOnError, 
+  IOnNodeFinished, 
+  IOnNodeStarted, 
+  IOnWorkflowFinished, 
+  IOnWorkflowStarted 
+} from './base'
 import { get, post, ssePost } from './base'
 import type { Feedbacktype } from '@/types/app'
 
@@ -29,7 +37,7 @@ export const sendWorkflowMessage = async (
     onWorkflowFinished: IOnWorkflowFinished
   },
 ) => {
-  return ssePost('workflows/run', {
+  return ssePost(`workflows/${process.env.NEXT_PUBLIC_APP_ID}/run`, {  // 这里修改成动态 Workflow ID
     body: {
       ...body,
       response_mode: 'streaming',
