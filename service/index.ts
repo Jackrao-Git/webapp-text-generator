@@ -37,13 +37,17 @@ export const sendWorkflowMessage = async (
     onWorkflowFinished: IOnWorkflowFinished
   },
 ) => {
-  return ssePost(`workflows/${process.env.NEXT_PUBLIC_APP_ID}/run`, {  // 这里修改成动态 Workflow ID
+  console.log("🚀 Workflow API Request:", `workflows/${process.env.NEXT_PUBLIC_APP_ID}/run`);
+  console.log("📡 Body Sent:", JSON.stringify(body, null, 2));
+
+  return ssePost(`workflows/${process.env.NEXT_PUBLIC_APP_ID}/run`, {  
     body: {
       ...body,
       response_mode: 'streaming',
     },
   }, { onNodeStarted, onWorkflowStarted, onWorkflowFinished, onNodeFinished })
 }
+
 
 export const fetchAppParams = async () => {
   return get('parameters')
